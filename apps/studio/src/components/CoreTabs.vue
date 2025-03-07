@@ -838,7 +838,7 @@ import { TransportOpenTab, setFilters, matches, duplicate } from '@/common/trans
 
       const filePath = this.$native.dialog.showSaveDialogSync({
         title: "Export Query",
-        defaultPath: await window.main.getLastExportPath(`${safeFilename}.sql`),
+        defaultPath: `${safeFilename}.sql`,
         filters: [
           { name: 'SQL (*.sql)', extensions: ['sql'] },
           { name: 'All Files (*.*)', extensions: ['*'] },
@@ -850,7 +850,6 @@ import { TransportOpenTab, setFilters, matches, duplicate } from '@/common/trans
 
       const notyQueue = 'export-query'
       this.$noty.info('Exporting query',  { queue: notyQueue })
-
       try {
         await this.$util.send('file/write', { path: filePath, text: query.text, options: { encoding: 'utf8' }})
         this.$noty.success('Query exported!', { killer: notyQueue })
